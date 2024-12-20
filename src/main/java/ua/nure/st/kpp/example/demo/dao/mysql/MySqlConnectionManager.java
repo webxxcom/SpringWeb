@@ -1,0 +1,46 @@
+package ua.nure.st.kpp.example.demo.dao.mysql;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
+
+import ua.nure.st.kpp.example.demo.dao.abstr.ConnectionManager;
+import ua.nure.st.kpp.example.demo.dao.MySqlConfig;
+
+public class MySqlConnectionManager implements ConnectionManager {
+	private final MysqlConnectionPoolDataSource dataSource;
+	final MySqlConfig config;
+
+	public MySqlConnectionManager(MySqlConfig config) {
+		super();
+		this.config = config;
+		dataSource = new MysqlConnectionPoolDataSource();
+		dataSource.setUrl(config.getUrl());
+		dataSource.setUser(config.getUser());
+		dataSource.setPassword(config.getPassword());
+	}
+
+	@Override
+    public Connection getConnection()  {
+		return getConnection(true, Connection.TRANSACTION_READ_COMMITTED);
+    }
+
+	@Override
+    public Connection getConnection(boolean autoCommit)  {
+		return getConnection(autoCommit, Connection.TRANSACTION_READ_COMMITTED);
+	}
+
+	public Connection getConnection(boolean autoCommit, int transactionLevel)
+			throws ConnectionException {
+		try{
+			Connection con = dataSource.getConnection();
+			con.setAutoCommit(autoCommit);
+			con.setTransactionIsolation(transactionLevel);
+
+			return con;
+		} catch (SQLException e) {
+			throw new ConnectionException("Error while initializing Connection", e);
+		}
+	}
+}

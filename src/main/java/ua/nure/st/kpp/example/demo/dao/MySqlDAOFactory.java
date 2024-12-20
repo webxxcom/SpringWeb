@@ -1,0 +1,30 @@
+package ua.nure.st.kpp.example.demo.dao;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import org.springframework.context.annotation.Primary;
+import ua.nure.st.kpp.example.demo.dao.abstr.ConnectionManager;
+import ua.nure.st.kpp.example.demo.dao.abstr.CustomerDAO;
+import ua.nure.st.kpp.example.demo.dao.mysql.MySqlConnectionManager;
+import ua.nure.st.kpp.example.demo.dao.mysql.dao.MySqlCustomerDAO;
+
+@Configuration
+public class MySqlDAOFactory implements DAOFactory{
+	Logger log = LoggerFactory.getLogger(MySqlDAOFactory.class);
+
+	@Bean(name = "MySqlCustomerDAO")
+	@Primary
+	public CustomerDAO getCustomerDAO(ConnectionManager cm) {
+		log.debug("MySqlCustomerDAO");
+
+		return new MySqlCustomerDAO(cm);
+	}
+
+	@Bean
+	public ConnectionManager getConnectionManager(MySqlConfig config) {
+		return new MySqlConnectionManager(config);
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Students</title>
+    <!-- See configuration in WebMvcConfig.java -->
+    <link href="/css/app.css" rel="stylesheet" media="screen"/>
+    <link data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <script data-th-src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script data-th-src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script data-th-src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div class="container">
+    <!-- define the fragment that can be used on any other page -->
+    <div data-th-fragment="top"
+         style="border:0 solid #ccc;padding:5px;margin-bottom:20px;background-color:#eee;text-align:left;">
+        <a data-th-href="@{/}">Students</a>
+        | <a data-th-href="@{/students}">All Students</a>
+        | <a data-th-href="@{/addStudent}">Add Student</a>
+        | <a data-th-href="@{/deleteStudentsByName}">Delete Students by name</a>
+        | <a data-th-href="@{/studentsByGroupName}">Students by group</a>
+    </div>
+
+    <h2>Customers</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Date of birth</th>
+        </tr>
+        <tr data-th-each="customerInfo : ${allCustomers}">
+            <td data-th-utext="${customerInfoStat.count}">..</td>
+            <td data-th-utext="${customerInfo.name}">..</td>
+            <td data-th-utext="${customerInfo.address}">..</td>
+            <td data-th-utext="${customerInfo.email}">..</td>
+            <td data-th-utext="${customerInfo.dateOfBirth}">..</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

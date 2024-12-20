@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span th:if="${product.discounts < 1}">Sale!</span>
+<span th:unless="${product.notInStock}">Stock!</span>
+<div th:switch="${user.role}">
+    <p th:case="'admin'">Administrator</p>
+    <p th:case="${roles.manager}">Manager</p>
+    <p th:case="*">Customer</p>
+</div>
+<form data-th-action="@{/addStudent}" data-th-object="${addStudentForm}" method="POST">
+    <label data-th-for="studName">Full Name</label>
+    <input type="text" class="form-control" placeholder="Enter Full Name" data-th-field="*{studName}"/>
+    <label data-th-for="groupName">Group name</label>
+    <input type="text" class="form-control" placeholder="Enter groupName" data-th-field="*{groupName}"/>
+    <label data-th-for="math">Mathematics</label>
+    <input type="text" class="form-control" placeholder="Enter Mathematics" data-th-field="*{math}"/>
+    <label data-th-for="physics">Physics</label>
+    <input type="text" class="form-control" placeholder="Enter Physics" data-th-field="*{physics}"/>
+    <label data-th-for="english">English</label>
+    <input type="text" class="form-control" placeholder="EnterEnglish English" data-th-field="*{english}"/>
+    <input type="submit" class="btn btn-success" value="Add"/>
+</form>
+
+<form action="/addStudent" method="POST">
+    <label for="studName">Full Name</label>
+    <input type="text" id="studName" name="studName" value=""/>
+    <label for="groupName">Group name</label>
+    <input type="text" id="groupName" name="groupName" value=""/>
+    <label for="math">Mathematics</label>
+    <input type="text" id="math" name="math" value="0"/>
+    <!-- ... -->
+    <input type="submit" value="Add"/>
+</form>
+
+</body>
+</html>
