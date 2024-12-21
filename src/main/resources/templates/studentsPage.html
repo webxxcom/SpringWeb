@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Students</title>
+    <title>Warehouse</title>
+
     <!-- See configuration in WebMvcConfig.java -->
     <link href="/css/app.css" rel="stylesheet" media="screen"/>
     <link data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
@@ -14,14 +14,13 @@
 
 <body>
 <div class="container">
-    <!-- define the fragment that can be used on any other page -->
-    <div data-th-fragment="top"
-         style="border:0 solid #ccc;padding:5px;margin-bottom:20px;background-color:#eee;text-align:left;">
-        <a data-th-href="@{/}">Students</a>
-        | <a data-th-href="@{/students}">All Students</a>
-        | <a data-th-href="@{/addStudent}">Add Student</a>
-        | <a data-th-href="@{/deleteStudentsByName}">Delete Students by name</a>
-        | <a data-th-href="@{/studentsByGroupName}">Students by group</a>
+    <!-- Top links to navigate -->
+    <div class="links">
+        <a data-th-href="@{/}">Customers</a>
+        <a data-th-href="@{/customers}">All Students</a>
+        <a data-th-href="@{/addStudent}">Add Student</a>
+        <a data-th-href="@{/deleteStudentsByName}">Delete Students by name</a>
+        <a data-th-href="@{/studentsByGroupName}">Students by group</a>
     </div>
 
     <h2>Customers</h2>

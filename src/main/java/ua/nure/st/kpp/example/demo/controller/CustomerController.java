@@ -1,6 +1,8 @@
 package ua.nure.st.kpp.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,22 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ua.nure.st.kpp.example.demo.entity.Customer;
 import ua.nure.st.kpp.example.demo.service.CustomerService;
+import ua.nure.st.kpp.example.demo.service.WarehouseService;
 
 @Controller
 public class CustomerController {
 	
 	Logger log = LoggerFactory.getLogger(CustomerController.class);
 
-    private final CustomerService dao;
+    private final WarehouseService dao;
 
 	@Autowired
-	public CustomerController(CustomerService dao) {
+	public CustomerController(WarehouseService dao) {
 		this.dao = dao;
 	}
 
-	@RequestMapping(value = {"/", "/students"}, method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = {"/", "/customers"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String showAllStudents(Model model) {
-        List<Customer> list = dao.getAllCustomers();
+        List<Customer> list = new ArrayList<>(dao.getCustomers());
         model.addAttribute("allCustomers", list);
         return "studentsPage"; // template name
     }

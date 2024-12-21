@@ -13,7 +13,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	public CustomerServiceImpl(CustomerDAO dao) {
-		super();
 		this.dao = dao;
 	}
 	
