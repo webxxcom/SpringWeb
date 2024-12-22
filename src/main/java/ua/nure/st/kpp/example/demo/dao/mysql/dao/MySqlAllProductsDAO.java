@@ -1,6 +1,8 @@
 package ua.nure.st.kpp.example.demo.dao.mysql.dao;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ua.nure.st.kpp.example.demo.dao.abstr.ConnectionManager;
 import ua.nure.st.kpp.example.demo.dao.DBException;
 import ua.nure.st.kpp.example.demo.dao.TransactionManager;
@@ -15,8 +17,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class MySqlAllProductsDAO implements AllProductsDAO {
-
     private final ConnectionManager cm;
     private final TransactionManager tm;
 
@@ -64,6 +66,21 @@ public class MySqlAllProductsDAO implements AllProductsDAO {
     }
 
     @Override
+    public long getEmpty() {
+        try(Connection con = cm.getConnection()){
+            String query = "select count(*) as count from all_products where quantity = 0";
+
+            Optional<Long> countOptional = getColumnValue(con, query, "count");
+            if(countOptional.isEmpty())
+                throw new DBException();
+
+            return countOptional.get();
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    @Override
     public void updateQuantity(long productId, int newQuantity) {
         String query = "update all_products " +
                 "set quantity = ? " +
@@ -90,12 +107,21 @@ public class MySqlAllProductsDAO implements AllProductsDAO {
     }
 
     public void insert(Connection con, Product product){
+        Objects.requireNonNull(con);
         Objects.requireNonNull(product);
 
-        String query = "insert into all_products (id, name, price, category, quantity)" +
-                " value (?, ?, ?, ?, ?)";
-        processUpdate(con, query,
-                product.getId(), product.getName(), product.getPrice(), product.getCategory(), product.getQuantity());
+        String query;
+        if(product.hasId()) {
+            query = "insert into all_products (id, name, price, category, quantity)" +
+                    " value (?, ?, ?, ?, ?)";
+            processUpdate(con, query,
+                    product.getId(), product.getName(), product.getPrice(), product.getCategory(), product.getQuantity());
+        }else{
+            query =  "insert into all_products (name, price, category, quantity)" +
+                    " value (?, ?, ?, ?)";
+            processUpdate(con, query,
+                    product.getName(), product.getPrice(), product.getCategory(), product.getQuantity());
+        }
     }
 
     @Override
@@ -120,6 +146,25 @@ public class MySqlAllProductsDAO implements AllProductsDAO {
     public void delete(long productId) {
         String query = "delete from all_products where id = ?";
         processUpdate(cm, query, productId);
+    }
+
+    @Override
+    @Transactional
+    public synchronized void edit(long id, Product editedProduct) {
+        String query = "update all_products set name=?,price=?,category=?,quantity=? where id=?;";
+
+        tm.executeTransaction(con -> {
+//            System.out.println("SQL Query: " + query);
+//            System.out.println("Parameters: name=" + editedProduct.getName() +
+//                    ", price=" + editedProduct.getPrice() +
+//                    ", category=" + editedProduct.getCategory() +
+//                    ", quantity=" + editedProduct.getQuantity() +
+//                    ", id=" + id);
+
+            processUpdate(con, query, editedProduct.getName(), editedProduct.getPrice(),
+                            editedProduct.getCategory(), editedProduct.getQuantity(), id);
+            }
+        );
     }
 
     @Override

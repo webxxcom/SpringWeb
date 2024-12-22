@@ -1,5 +1,6 @@
 package ua.nure.st.kpp.example.demo.dao.mysql.dao;
 
+import org.springframework.stereotype.Service;
 import ua.nure.st.kpp.example.demo.dao.*;
 import ua.nure.st.kpp.example.demo.dao.abstr.*;
 import ua.nure.st.kpp.example.demo.entity.*;
@@ -13,13 +14,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public final class MySqlSupplierDAO implements SupplierDAO {
     private final MySqlProductRelationshipTableDAO supplierProductsDAO;
     private final ConnectionManager cm;
     private final TransactionManager tm;
 
     @Override
-    public @NotNull MySqlProductRelationshipTableDAO getSupplierProductsDAO() {
+    public MySqlProductRelationshipTableDAO getSupplierProductsDAO() {
         return supplierProductsDAO != null
                 ? supplierProductsDAO
                 : new MySqlProductRelationshipTableDAO(cm, "supplier"){
@@ -91,7 +93,7 @@ public final class MySqlSupplierDAO implements SupplierDAO {
     }
 
     @Override
-    public @NotNull List<Supplier> getByName(String name) {
+    public List<Supplier> getByName(String name) {
         String query = "select * from suppliers where name = ?";
 
         return processQuery(cm, query, name);
@@ -99,14 +101,14 @@ public final class MySqlSupplierDAO implements SupplierDAO {
 
     @Contract(pure = true)
     @Override
-    public @NotNull List<Supplier> getByNameLike(String pattern) {
+    public List<Supplier> getByNameLike(String pattern) {
         String query = "select * from suppliers where name like ?";
 
         return processQuery(cm, query, pattern);
     }
 
     @Override
-    public @NotNull List<Supplier> getAll() {
+    public List<Supplier> getAll() {
         String query = "select * from suppliers";
 
         return processQuery(cm, query);
@@ -123,9 +125,9 @@ public final class MySqlSupplierDAO implements SupplierDAO {
 
     @Override
     public void insert(Supplier supplier) {
-        tm.executeTransaction(con ->{
-            insert(con, supplier);
-        });
+        tm.executeTransaction(con ->
+            insert(con, supplier)
+        );
     }
 
     public void insert(Connection con, Supplier s) {
@@ -146,6 +148,11 @@ public final class MySqlSupplierDAO implements SupplierDAO {
         tm.executeTransaction(con ->
             delete(con, supplierId)
         );
+    }
+
+    @Override
+    public void edit(long id, Supplier editedProduct) {
+        throw new RuntimeException();
     }
 
     public void delete(Connection con, long supplierId){

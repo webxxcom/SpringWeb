@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link href="/css/app.css" rel="stylesheet">
+    <title>Warehouse</title>
+</head>
+
+<body>
+<div class="container">
+    <h2>Customers</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Date of birth</th>
+        </tr>
+        <tr data-th-each="customerInfo : ${allCustomers}">
+            <td data-th-utext="${customerInfoStat.count}">..</td>
+            <td data-th-utext="${customerInfo.name}">..</td>
+            <td data-th-utext="${customerInfo.address}">..</td>
+            <td data-th-utext="${customerInfo.email}">..</td>
+            <td data-th-utext="${customerInfo.dateOfBirth}">..</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

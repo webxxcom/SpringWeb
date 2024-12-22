@@ -13,7 +13,6 @@ public class MySqlConnectionManager implements ConnectionManager {
 	final MySqlConfig config;
 
 	public MySqlConnectionManager(MySqlConfig config) {
-		super();
 		this.config = config;
 		dataSource = new MysqlConnectionPoolDataSource();
 		dataSource.setUrl(config.getUrl());

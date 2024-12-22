@@ -13,7 +13,7 @@ public class TransactionManager {
         this.cm = connectionSource;
     }
 
-    public void executeTransaction(@NotNull TransactionCallback callback) {
+    public void executeTransaction(TransactionCallback callback) {
         try (Connection con = cm.getConnection()) {
             try {
                 ConnectionManager.beginTransaction(con);

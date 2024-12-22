@@ -248,6 +248,11 @@ public final class MySqlCustomerDAO implements CustomerDAO {
         );
     }
 
+    @Override
+    public void edit(long id, Customer editedProduct) {
+        throw new RuntimeException();
+    }
+
     private void deleteProductContainerIfExists(Connection con,
                                                 @NotNull LongFunction<Optional<Long>> idGetter,
                                                 MySqlProductRelationshipTableDAO dao,

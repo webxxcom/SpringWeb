@@ -1,5 +1,6 @@
 package ua.nure.st.kpp.example.demo.dao.abstr;
 
+import org.springframework.stereotype.Component;
 import ua.nure.st.kpp.example.demo.dao.mysql.ConnectionException;
 import ua.nure.st.kpp.example.demo.dao.mysql.InvalidConnectionException;
 

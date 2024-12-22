@@ -1,6 +1,7 @@
 package ua.nure.st.kpp.example.demo.dao.abstr;
 
 import ua.nure.st.kpp.example.demo.entity.Entity;
+import ua.nure.st.kpp.example.demo.entity.Product;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +17,5 @@ public interface EntityDAO<T extends Entity> extends Processable<T> {
     void insertAll(T[] entities);
     void insert(T entity);
     void delete(long id);
+    void edit(long id, T editedProduct);
 }

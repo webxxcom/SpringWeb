@@ -30,6 +30,10 @@ public abstract class Entity implements Comparable<Entity>{
             this.id = id;
     }
 
+    public boolean hasId() {
+        return this.id != Entity.NO_ID;
+    }
+
     public String getName(){
         return name;
     }

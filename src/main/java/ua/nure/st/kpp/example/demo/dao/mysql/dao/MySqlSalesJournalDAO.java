@@ -51,6 +51,11 @@ public final class MySqlSalesJournalDAO implements SalesJournalDAO {
     }
 
     @Override
+    public void edit(long id, Journal editedJournal) {
+
+    }
+
+    @Override
     public Journal map(ResultSet rs) throws SQLException {
         throw new RuntimeException();
     }

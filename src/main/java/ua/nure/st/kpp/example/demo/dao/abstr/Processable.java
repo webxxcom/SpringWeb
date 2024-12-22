@@ -13,10 +13,10 @@ import java.util.Optional;
 public interface Processable<T> {
     T map(ResultSet rs) throws SQLException;
 
-    default @NotNull Optional<Object> getColumnValue(
-            @NotNull ConnectionManager cm,
-            @NotNull String query,
-            @NotNull String columnName,
+    default Optional<Object> getColumnValue(
+            ConnectionManager cm,
+            String query,
+            String columnName,
             Object... params) {
         try (Connection con = cm.getConnection()){
              return getColumnValue(con, query, columnName, params);
@@ -26,9 +26,9 @@ public interface Processable<T> {
     }
 
     default <E> Optional<E> getColumnValue(
-            @NotNull Connection con,
-            @NotNull String query,
-            @NotNull String columnName,
+            Connection con,
+            String query,
+            String columnName,
             Object... params) {
         try (PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -123,12 +123,15 @@ public interface Processable<T> {
     default void processUpdate(
             Connection con,
             String query,
-            Object @NotNull ... params){
+            Object... params){
         try{
             ConnectionManager.requireValidConnection(con);
 
             try(PreparedStatement ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
                 setParamsToPreparedStatement(ps, params);
+                ps.setString(3, (String) params[2]);
+                System.out.println("SQL Query: " + ps);
+
                 if(ps.executeUpdate() == 0)
                     throw new OperationWasNotPerformedException("Cannot execute " + ps);
             }
