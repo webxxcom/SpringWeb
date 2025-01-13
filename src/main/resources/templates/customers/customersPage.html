@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head th:replace="fragments/headers::head(title='Homepage')"></head>
+
+<body>
+<div class="container">
+    <div data-th-replace="homePage::home-button"></div>
+
+    <h2>Customers</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Registration Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customer : ${allCustomers}">
+                <td th:utext="${customerStat.count}">..</td>
+                <td th:utext="${customer.name}">..</td>
+                <td th:utext="${customer.address}">..</td>
+                <td th:utext="${customer.email}">..</td>
+                <td th:utext="${customer.dateOfBirth}">..</td>
+                <td th:utext="${customer.registrationDate}">..</td>
+                <td>
+                    <a th:href="@{/customers/edit/{id}(id=${customer.id})}" class="button">Edit</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="nav-buttons">
+        <a th:href="@{/}" class="button">Back to Home</a>
+        <a th:href="@{/customers/add}" class="button">Add Customer</a>
+        <a th:href="@{/customers/remove}" class="button">Remove Customer</a>
+    </div>
+</div>
+</body>
+</html>

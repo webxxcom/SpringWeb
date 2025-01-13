@@ -7,20 +7,18 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: auto;
     background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee, #69b7eb, #c1d3fe);
     background-size: 300% 300%;
     animation: gradient-animation 10s ease infinite;
 }
 
-/* Animated Gradient Background */
 @keyframes gradient-animation {
-    0% { background-position: 0% 50%; }
+    0% { background-position: 0 50%; }
     50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 0 50%; }
 }
 
-/* Container Styling */
 .container {
     text-align: center;
     background: rgba(255, 255, 255, 0.8);
@@ -31,12 +29,19 @@ body {
     max-width: 1200px;
 }
 
-/* Header Styling */
+.sticky-header {
+    position: sticky;
+    top: 0; /* Stick to the top */
+    z-index: 1000; /* Ensure it appears above other elements */
+    padding: 10px;
+    background-color: transparent; /* Transparent background */
+    text-align: left; /* Align content to the left */
+}
+
 h1 {
     margin-bottom: 20px;
 }
 
-/* Statistics Section */
 .statistics {
     display: flex;
     justify-content: space-around;
@@ -71,7 +76,6 @@ h1 {
     color: #333;
 }
 
-/* General Container Styling */
 .container {
     text-align: center;
     background: rgba(255, 255, 255, 0.9);
@@ -82,13 +86,11 @@ h1 {
     margin: 20px auto;
 }
 
-/* Table Container */
 .table-container {
     overflow-x: auto;
     margin-top: 20px;
 }
 
-/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -98,18 +100,6 @@ table {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-th, td {
-    padding: 12px 15px;
-    border: 1px solid #e0e0e0;
-}
-
-th {
-    background-color: #007BFF;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-weight: bold;
 }
 
 tbody tr:nth-child(odd) {
@@ -135,25 +125,28 @@ tbody tr:hover {
     margin-top: 20px;
 }
 
-/* Button Styling for Buttons and Links */
-button,
-a.button {
+/* Flex container for buttons */
+.button-container {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    margin-bottom: 20px; /* Add spacing below the button container */
+}
+
+.home-button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #007BFF;
+    padding: 12px 25px;
+    background-color: #28a745; /* A different color, e.g., green */
     color: white;
-    border-radius: 5px;
+    border: 2px solid #218838;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.2s;
     cursor: pointer;
 }
 
-button:hover,
-a.button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
 /* Form Styling */
 form {
     display: flex;
@@ -201,4 +194,196 @@ form button:hover {
     transform: scale(1.05);
 }
 
+/* Error Label Styling */
+.error-label {
+    color: red;
+    font-weight: bold;
+}
 
+/* Error Message Styling */
+.error {
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.primary-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+.secondary-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.secondary-button:hover {
+    background-color: #5a6268;
+}
+
+/* Filter Container Styling */
+.filter-container {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Filter Form Layout */
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Row Layout for Inputs */
+.filter-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-row label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    width: 48%; /* Adjust width to ensure two items per row */
+}
+
+.filter-row input {
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Actions Styling */
+.filter-actions {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.filter-actions .button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-actions .button:hover {
+    background-color: #0056b3;
+}
+
+/* Table Container */
+.table-container {
+    margin-top: 20px; /* Space between filters and table */
+    max-height: 500px; /* Limit table height */
+    overflow-y: auto; /* Enable scrolling within the table */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: #007BFF;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+tbody tr:hover {
+    background-color: #007BFF;
+}
+
+/* Button Styling */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Container for language buttons */
+.language-buttons {
+    display: flex;
+    justify-content: center; /* Center align the buttons */
+    gap: 15px; /* Space between buttons */
+    margin: 20px 0; /* Space around the button container */
+}
+
+/* Common styles for language buttons */
+.lang-button {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none; /* Remove underline */
+    font-weight: bold;
+    border: 2px solid transparent; /* Border for hover effects */
+    border-radius: 50px; /* Fully rounded buttons */
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* English button styles */
+.lang-english {
+    background-color: #e0e0e0; /* Light gray */
+    color: #000; /* Black text */
+}
+
+.lang-english:hover {
+    background-color: #007BFF; /* Blue hover background */
+    color: #fff; /* White text */
+    border-color: #007BFF; /* Blue border on hover */
+    transform: scale(1.1); /* Slight zoom */
+}
+
+/* Ukrainian button styles */
+.lang-ukrainian {
+    background-color: #ffeb3b; /* Yellow background */
+    color: #000; /* Black text */
+}
+
+.lang-ukrainian:hover {
+    background-color: #ff9800; /* Orange hover background */
+    color: #fff; /* White text */
+    border-color: #ff9800; /* Orange border on hover */
+    transform: scale(1.1); /* Slight zoom */
+}
